@@ -5,35 +5,43 @@ import sys
 import pytest
 from unittest.mock import Mock, MagicMock, patch
 
-# Auto-mock frappe module to avoid import errors
-# This allows tests to run without frappe installed
-sys.modules['frappe'] = MagicMock()
-sys.modules['frappe.model'] = MagicMock()
-sys.modules['frappe.model.document'] = MagicMock()
-sys.modules['frappe.model.mapper'] = MagicMock()
-sys.modules['frappe.query_builder'] = MagicMock()
-sys.modules['frappe.query_builder.functions'] = MagicMock()
-sys.modules['frappe.utils'] = MagicMock()
-sys.modules['frappe.utils.nestedset'] = MagicMock()
-sys.modules['frappe.core'] = MagicMock()
-sys.modules['frappe.core.doctype'] = MagicMock()
-sys.modules['frappe.core.doctype.version'] = MagicMock()
-sys.modules['frappe.core.doctype.version.version'] = MagicMock()
-sys.modules['frappe.website'] = MagicMock()
-sys.modules['frappe.website.website_generator'] = MagicMock()
+# Auto-mock frappe module only when Frappe is not installed or not bench-ready.
+# This allows unit tests to run without a full Frappe bench installation,
+# while e2e tests can still use a real frappe package when available.
+try:
+    import frappe  # noqa: F401
+    FRAPPE_INSTALLED = hasattr(frappe, 'connect') and hasattr(frappe, 'clear_cache')
+except ImportError:
+    FRAPPE_INSTALLED = False
 
-# Create frappe module mock with proper attributes
-frappe_mock = MagicMock()
-frappe_mock.ValidationError = Exception
-frappe_mock._ = lambda x: x
-frappe_mock.get_value = MagicMock(return_value=None)
-frappe_mock.db = MagicMock()
-frappe_mock.db.exists = MagicMock(return_value=True)
-frappe_mock.db.get_value = MagicMock(return_value=None)
-frappe_mock.bold = lambda x: f"**{x}**"
-frappe_mock.throw = lambda x: None
+if not FRAPPE_INSTALLED:
+    sys.modules['frappe'] = MagicMock()
+    sys.modules['frappe.model'] = MagicMock()
+    sys.modules['frappe.model.document'] = MagicMock()
+    sys.modules['frappe.model.mapper'] = MagicMock()
+    sys.modules['frappe.query_builder'] = MagicMock()
+    sys.modules['frappe.query_builder.functions'] = MagicMock()
+    sys.modules['frappe.utils'] = MagicMock()
+    sys.modules['frappe.utils.nestedset'] = MagicMock()
+    sys.modules['frappe.core'] = MagicMock()
+    sys.modules['frappe.core.doctype'] = MagicMock()
+    sys.modules['frappe.core.doctype.version'] = MagicMock()
+    sys.modules['frappe.core.doctype.version.version'] = MagicMock()
+    sys.modules['frappe.website'] = MagicMock()
+    sys.modules['frappe.website.website_generator'] = MagicMock()
 
-sys.modules['frappe'] = frappe_mock
+    # Create frappe module mock with proper attributes
+    frappe_mock = MagicMock()
+    frappe_mock.ValidationError = Exception
+    frappe_mock._ = lambda x: x
+    frappe_mock.get_value = MagicMock(return_value=None)
+    frappe_mock.db = MagicMock()
+    frappe_mock.db.exists = MagicMock(return_value=True)
+    frappe_mock.db.get_value = MagicMock(return_value=None)
+    frappe_mock.bold = lambda x: f"**{x}**"
+    frappe_mock.throw = lambda x: None
+
+    sys.modules['frappe'] = frappe_mock
 
 
 @pytest.fixture

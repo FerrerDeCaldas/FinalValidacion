@@ -1,0 +1,92 @@
+version: "3.8"
+
+services:
+  # Base de datos MariaDB
+  db:
+    image: mariadb:10.6
+    container_name: erpnext_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: erpnext_test
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  # Redis para cache
+  redis-cache:
+    image: redis:7-alpine
+    container_name: erpnext_redis_cache
+    ports:
+      - "6379:6379"
+
+  # Redis para queue
+  redis-queue:
+    image: redis:7-alpine
+    container_name: erpnext_redis_queue
+    ports:
+      - "6380:6379"
+
+  # Backend Frappe/ERPNext
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: erpnext_backend
+    depends_on:
+      db:
+        condition: service_healthy
+      redis-cache:
+        condition: service_started
+      redis-queue:
+        condition: service_started
+    environment:
+      # Configuración de Frappe
+      FRAPPE_APP_NAME: erpnext
+      DB_HOST: db
+      DB_NAME: erpnext_test
+      DB_USER: root
+      DB_PASSWORD: root
+      REDIS_CACHE: redis-cache:6379
+      REDIS_QUEUE: redis-queue:6379
+      # Modo desarrollo
+      FRAPPE_DEVELOPMENT: "1"
+      FRAPPE_ENVIRONMENT: development
+      PYTHONUNBUFFERED: 1
+    ports:
+      - "8000:8000"
+    volumes:
+      # Monta tu repo como la app erpnext
+      - ./:/home/frappe/frappe-bench/apps/erpnext
+      # Monta el directorio de sites para persistencia
+      - sites_data:/home/frappe/frappe-bench/sites
+      # Monta logs
+      - logs_data:/home/frappe/frappe-bench/logs
+    working_dir: /home/frappe/frappe-bench
+    # Comando para iniciar y ejecutar tests
+    command: >
+      bash -c "
+        echo 'Waiting for DB...' &&
+        sleep 30 &&
+        echo 'Setting up bench...' &&
+        bench new-site --db-type mariadb --admin-password admin --mariadb-root-password root test_site &&
+        echo 'Installing ERPNext...' &&
+        bench --site test_site install-app erpnext &&
+        echo 'Running E2E tests...' &&
+        bench --site test_site run-tests --app erpnext --module manufacturing --verbose &&
+        echo 'Tests completed!' &&
+        tail -f /dev/null
+      "
+
+volumes:
+  db_data:
+  sites_data:
+  logs_data:
+
+networks:
+  default:
+    name: erpnext_network

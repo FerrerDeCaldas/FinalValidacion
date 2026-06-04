@@ -1,5 +1,8 @@
 # Testing dependencies for unit tests
 # Install with: pip install -r requirements-test.txt
+#
+# Este repositorio también incluye pruebas deepeval locales bajo tests/deepeval/
+# y el paquete auxiliar local deepeval/.
 
 pytest>=7.0.0
 pytest-cov>=4.0.0

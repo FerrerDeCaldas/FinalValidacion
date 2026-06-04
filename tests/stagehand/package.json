@@ -1,0 +1,25 @@
+{
+  "name": "stagehand-tests",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "install-stagehand": "npm install",
+    "gemini": "ts-node stagehand-gemini.ts",
+    "gemini:manufacturing": "ts-node stagehand-gemini-manufacturing.ts",
+    "gemini:quality-management": "ts-node stagehand-gemini-quality-management.ts",
+    "gemini:shopping-cart": "ts-node stagehand-gemini-shopping-cart.ts",
+    "groq": "ts-node stagehand-groq.ts",
+    "groq:manufacturing": "ts-node stagehand-groq-manufacturing.ts",
+    "groq:quality-management": "ts-node stagehand-groq-quality-management.ts",
+    "groq:shopping-cart": "ts-node stagehand-groq-shopping-cart.ts"
+  },
+  "dependencies": {
+    "@browserbasehq/stagehand": "^1.0.0",
+    "dotenv": "^16.0.0",
+    "zod": "^3.22.2"
+  },
+  "devDependencies": {
+    "ts-node": "^10.0.0",
+    "@types/node": "^18.0.0"
+  }
+}

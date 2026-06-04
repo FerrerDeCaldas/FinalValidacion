@@ -1,0 +1,40 @@
+{
+  "modules": {
+    "manufacturing": {
+      "name": "Manufacturing",
+      "description": "Pruebas de Manufacturing sobre BOM, Work Orders, Production Planning y estaciones de trabajo.",
+      "tests": [
+        {"id": "MFG-01", "title": "Crear BOM exitosamente", "objective": "Validar la creación y cálculo de costos de una lista de materiales"},
+        {"id": "MFG-02", "title": "Validar cantidades en BOM", "objective": "Asegurar que las cantidades no sean 0 y que el BOM tenga al menos un item"},
+        {"id": "MFG-03", "title": "Generar Work Order", "objective": "Crear una orden de trabajo a partir de un BOM y validar su estado"},
+        {"id": "MFG-04", "title": "Validar actualización de Work Order", "objective": "Actualizar cantidad y estado de una orden de trabajo"},
+        {"id": "MFG-05", "title": "Planificación de producción", "objective": "Simular el planificador de producción y validar el uso de estaciones de trabajo"}
+      ],
+      "example_prompt": "Genera un plan de pruebas E2E para una lista de materiales y órdenes de trabajo en el módulo Manufacturing de ERPNext. Incluye validaciones de cantidad, costos y workflow de producción."
+    },
+    "quality_management": {
+      "name": "Quality Management",
+      "description": "Pruebas de Quality Management sobre procedimientos, revisiones, acciones correctivas, metas y reuniones.",
+      "tests": [
+        {"id": "QM-01", "title": "Crear procedimiento de calidad", "objective": "Validar inicialización y estructura de un procedimiento de calidad"},
+        {"id": "QM-02", "title": "Crear revisión de calidad", "objective": "Asegurar que la revisión validada pueda asociarse a un procedimiento y su estado cambie correctamente"},
+        {"id": "QM-03", "title": "Registrar acción correctiva", "objective": "Crear una acción de calidad con resolución y verificar el estado"},
+        {"id": "QM-04", "title": "Crear meta de calidad", "objective": "Generar un objetivo de calidad con indicadores y actualizar su progreso"},
+        {"id": "QM-05", "title": "Flujo completo de calidad", "objective": "Crear procedimiento, revisión, acción y meta dentro de un workflow integrado"}
+      ],
+      "example_prompt": "Genera casos de prueba para Quality Management en ERPNext que cubran procedimientos, revisiones, acciones correctivas y metas de calidad."
+    },
+    "shopping_cart": {
+      "name": "Shopping Cart",
+      "description": "Pruebas de Shopping Cart sobre carrito, orden de venta, pagos, impuestos y descuentos.",
+      "tests": [
+        {"id": "SC-01", "title": "Crear carrito y orden de venta", "objective": "Agregar items al carrito y validar la creación de una sales order"},
+        {"id": "SC-02", "title": "Calcular total del carrito", "objective": "Validar subtotales, descuentos y total final"},
+        {"id": "SC-03", "title": "Aplicar descuento", "objective": "Aplicar descuento por porcentaje y validar el precio final"},
+        {"id": "SC-04", "title": "Calcular impuestos automáticos", "objective": "Verificar impuestos en la orden de venta según la configuración fiscal"},
+        {"id": "SC-05", "title": "Procesar pago exitoso", "objective": "Simular un flujo de pago y validar el estado de la orden"}
+      ],
+      "example_prompt": "Genera un conjunto de pruebas E2E para el Shopping Cart de ERPNext, incluyendo carrito, descuentos, impuestos y pagos."
+    }
+  }
+}
