@@ -5,6 +5,7 @@ Tests the complete flow of creating and managing BOM documents
 
 import frappe
 import pytest
+import time
 from frappe.test_runner import make_test_records
 from decimal import Decimal
 
