@@ -1,0 +1,45 @@
+name: SonarCloud Scan
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  sonarcloud:
+    name: SonarCloud Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+
+      - name: Install test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-test.txt
+
+      - name: Run tests and generate coverage report
+        run: |
+          python -m pytest tests/unit/ \
+            --cov=erpnext \
+            --cov=banking \
+            --cov-report=xml:coverage.xml
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v2
+        with:
+          organization: ferrerdecaldas
+          projectKey: FerrerDeCaldas_FinalValidacion
+          projectName: FerrerDeCaldas_FinalValidacion
+          token: ${{ secrets.token_final }}
+          extraProperties: |
+            sonar.python.coverage.reportPaths=coverage.xml
+            sonar.automatic_analysis.disabled=true
