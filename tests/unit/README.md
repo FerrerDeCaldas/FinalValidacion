@@ -76,13 +76,39 @@ pytest tests/unit/manufacturing/test_bom.py::TestBOMTree::test_bom_tree_initiali
 
 ### Ejecutar con cobertura
 ```bash
-pytest --cov=erpnext.manufacturing --cov=erpnext.quality_management --cov=erpnext.shopping_cart --cov-report=html
+pytest --cov=erpnext.manufacturing --cov=erpnext.quality_management --cov=erpnext.shopping_cart --cov-report=xml:coverage.xml --cov-report=html
+```
+
+También puedes usar el helper del repositorio:
+```bash
+python run_tests.py --coverage
 ```
 
 ### Ver salida detallada
 ```bash
 pytest -v
 ```
+
+## Análisis con Sonar
+Esta configuración está pensada para analizar únicamente la carpeta de pruebas del proyecto.
+
+1. Instala SonarScanner en tu máquina local o usa SonarCloud.
+2. Ejecuta el análisis desde la raíz del repositorio:
+```bash
+sonar-scanner
+```
+
+> El archivo `sonar-project.properties` ya está configurado para usar `tests/` como carpeta de origen.
+
+### Si usas SonarCloud
+Añade las siguientes variables de entorno antes de ejecutar el escáner:
+```bash
+export SONAR_HOST_URL=https://sonarcloud.io
+export SONAR_LOGIN=<tu_token>
+```
+
+### Si usas SonarQube local
+Asegúrate de tener `sonar.host.url` apuntando a tu servidor y `sonar.login` con el token de acceso en la configuración global o en la línea de comandos.
 
 ### Ejecutar solo pruebas rápidas
 ```bash

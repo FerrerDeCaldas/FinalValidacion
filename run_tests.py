@@ -74,6 +74,7 @@ def run_with_coverage():
             "--cov=erpnext.manufacturing",
             "--cov=erpnext.quality_management",
             "--cov=erpnext.shopping_cart",
+            "--cov-report=xml:coverage.xml",
             "--cov-report=html",
             "--cov-report=term-missing",
             "-v"
