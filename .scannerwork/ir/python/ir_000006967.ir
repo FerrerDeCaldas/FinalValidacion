@@ -1,0 +1,8 @@
+affected_doctypes: :(,"j*
+(
+; ;(#"
+builtinsset*:Bset,
+*
+; ;($"
+builtinslist*:Blist
+; ;($*JD:\Desktop\FinalValidacion\erpnext\patches\v13_0\delete_orphaned_tables.py

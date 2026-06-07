@@ -1,0 +1,7 @@
+organization=ferrerdecaldas
+projectKey=ferrerdecaldas_final-validacion-local
+serverUrl=https://sonarcloud.io
+serverVersion=8.0.0.89506
+dashboardUrl=https://sonarcloud.io/dashboard?id=ferrerdecaldas_final-validacion-local
+ceTaskId=AZ6VqOKh00Lk0v0EwWDV
+ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AZ6VqOKh00Lk0v0EwWDV

@@ -1,0 +1,5 @@
+
+-$"Get rows from stock balance report"strfilters ("=+
+)
+ (3"?python-unknown?:Blist
+ (3*SD:\Desktop\FinalValidacion\erpnext\stock\report\stock_balance\test_stock_balance.py

@@ -1,0 +1,16 @@
+
+5erpnext.stock.valuation.BinWiseValuation.remove_stock?
+5D:\Desktop\FinalValidacion\erpnext\stock\valuation.py ("3*2
+3
+valuation.py"
+ (
+implicit return:
+ (
+qty:
+ (
+outgoing_rate:
+ (3
+rate_generator:&
+ ((
+is_return_purchase_entryB,*
+(erpnext.stock.valuation.BinWiseValuationH

@@ -1,0 +1,32 @@
+
+"Closing Balance"str
+-	$"Period Movement (Debits - Credits)"str
+"Opening Balance"str
+0.0floatself; ;(balance_type; ;(&"T*
+(
+< <(&"
+#binop ==#2==:Bbool&"$
+< <(& *< <(2> >("<(
+&
+=
+ =("#get-field# opening:
+= =("V*
+(
+> >(("
+#binop ==#2==:Bbool&"$
+> >(( *> >(2@ @("<(
+&
+?
+ ?("#get-field# closing:
+? ?("L*
+(
+@ @(;
+"
+#binop ==#2==:	Bbool"
+@ @(;
+ *@ @("=)
+'
+A
+ A("#get-field# movement:
+A A("
+B B(*hD:\Desktop\FinalValidacion\erpnext\accounts\doctype\financial_report_template\financial_report_engine.py
